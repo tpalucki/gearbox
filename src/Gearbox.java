@@ -33,7 +33,7 @@ public class Gearbox {
             }
             setCurrentGear((Integer) gearBoxCurrentParams[1]);
         } else {
-           setCurrentGear((Integer) gearBoxCurrentParams[1]);
+            setCurrentGear((Integer) gearBoxCurrentParams[1]);
         }
     }
 
@@ -45,5 +45,5 @@ public class Gearbox {
         this.maxDrive = maxDrive;
     }
 
-    
+
 }
