@@ -5,6 +5,9 @@ class GearboxDriver implements Driver {
     private final ExternalSystemsFacade externalSystems;
     private final Gearbox gearbox;
 
+    private final Object[] characteristics = new Object[]{2000d, 1000d, 1000d, 0.5d, 2500d, 4500d, 1500d, 0.5d, 5000d, 0.7d, 5000d, 5000d, 1500d, 2000d, 3000d, 6500d, 14d};
+
+
     enum AggressiveMode {
         MODE_1, MODE_2, MODE_3
     }
@@ -30,9 +33,16 @@ class GearboxDriver implements Driver {
 
     }
 
-    public void calculate() {
+    public void handleGas() {
         RPM currentRPM = this.externalSystems.currentRPM();
-        // TODO implement logic
+
+        if (this.driveMode == DriveMode.ECO) {
+
+        } else if (this.driveMode == DriveMode.COMFORT) {
+
+        } else if (this.driveMode == DriveMode.SPORT) {
+
+        }
     }
 
     @Override
