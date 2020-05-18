@@ -1,39 +1,24 @@
 class Gear {
-    private GearEnum value;
+    private final int value;
 
-    Gear(GearEnum value) {
-        this.value = value;
+    private static final int MIN_GEAR = 1;
+
+    Gear(int gear) {
+        if (gear < MIN_GEAR) {
+            throw new IllegalArgumentException();
+        }
+        this.value = gear;
     }
 
-    GearEnum value() {
+    int asInt() {
         return this.value;
     }
 
-    // TODO maybe implement as a list of gears - iteratin up and down of list would be easier
+    boolean isGreaterThan(Gear gear) {
+        return this.value > gear.asInt();
+    }
 
-    public enum GearEnum {
-        GEAR_PARK(-2),
-        GEAR_REVERSE(-1),
-        GEAR_NEUTRAL(0),
-        GEAR_1(1),
-        GEAR_2(2),
-        GEAR_3(3),
-        GEAR_4(4),
-        GEAR_5(5),
-        GEAR_6(6),
-        GEAR_7(7),
-        GEAR_8(8);
-
-        private int value;
-
-        GearEnum(int value) {
-            this.value = value;
-        }
-
-//        GearEnum below(GearEnum gearEnum) {
-//            gearEnum value
-//        }
-//
-//        GearEnum above(GearEnum)
+    boolean isLowerThan(Gear gear) {
+        return this.value < gear.asInt();
     }
 }

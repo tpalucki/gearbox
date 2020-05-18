@@ -17,7 +17,7 @@ interface Driver {
 
     Gear currentGear();
 
-    Gear gearAbove(Gear defaultGear);
+//    Gear gearAbove(Gear defaultGear);
 
-    Gear gearBelow(Gear defaultGear);
+//    Gear gearBelow(Gear defaultGear);
 }

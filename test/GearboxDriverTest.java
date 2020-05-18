@@ -9,25 +9,25 @@ class GearboxDriverTest {
         return new GearboxDriver(gearbox, externalSystems);
     }
 
-    @Test
-    void handleGearUp() {
-        Driver driver = givenDriver();
-        Gear defaultGear = driver.currentGear();
-        // when
-        driver.handleGearUp();
-        // then
-        Assertions.assertEquals(driver.gearAbove(defaultGear), driver.currentGear());
-    }
+//    @Test
+//    void handleGearUp() {
+//        Driver driver = givenDriver();
+//        Gear defaultGear = driver.currentGear();
+//        // when
+//        driver.handleGearUp();
+//        // then
+//        Assertions.assertEquals(driver.gearAbove(defaultGear), driver.currentGear());
+//    }
 
-    @Test
-    void gearDown() {
-        Driver driver = givenDriver();
-        Gear defaultGear = driver.currentGear();
-        // when
-        driver.handleGearDown();
-        // then
-        Assertions.assertEquals(driver.gearBelow(defaultGear), driver.currentGear());
-    }
+//    @Test
+//    void gearDown() {
+//        Driver driver = givenDriver();
+//        Gear defaultGear = driver.currentGear();
+//        // when
+//        driver.handleGearDown();
+//        // then
+//        Assertions.assertEquals(driver.gearBelow(defaultGear), driver.currentGear());
+//    }
 
     @Test
     void aggressiveModeUp() {
