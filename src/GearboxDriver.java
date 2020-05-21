@@ -18,9 +18,9 @@ class GearboxDriver implements Driver {
     GearboxDriver(Gearbox gearbox, ExternalSystemsFacade externalSystems) {
         this.gearbox = new GearboxACL(gearbox);
         this.externalSystems = externalSystems;
-        this.driveMode = DriveMode.COMFORT;
-        this.aggresiveMode = AggressiveMode.MODE_1;
-        this.gearCalculator = new GearCalculator(DEFAULT_GEAR_RANGE, DEFAULT_RPM_RANGE);
+        driveMode = DriveMode.COMFORT;
+        aggresiveMode = AggressiveMode.MODE_1;
+        gearCalculator = new GearCalculator(DEFAULT_GEAR_RANGE, DEFAULT_RPM_RANGE);
     }
 
     @Override
@@ -34,66 +34,66 @@ class GearboxDriver implements Driver {
     }
 
     public void handleGas() {
-        RPM currentRPM = this.externalSystems.currentRPM();
+        RPM currentRPM = externalSystems.currentRPM();
 
-        if (this.gearbox.drive()) {
-            Gear newGear = this.gearCalculator.calculate(currentRPM, currentGear());
-            this.gearbox.setGear(newGear);
+        if (gearbox.drive()) {
+            Gear newGear = gearCalculator.calculate(currentRPM, currentGear());
+            gearbox.setGear(newGear);
         }
     }
 
     @Override
     public AggressiveMode shiftAggressiveModeUp() {
-        switch (this.aggresiveMode) {
+        switch (aggresiveMode) {
             case MODE_1:
-                this.aggresiveMode = AggressiveMode.MODE_2;
+                aggresiveMode = AggressiveMode.MODE_2;
                 break;
             case MODE_2:
-                this.aggresiveMode = AggressiveMode.MODE_3;
+                aggresiveMode = AggressiveMode.MODE_3;
                 break;
             default:
                 break;
         }
-        return this.aggresiveMode;
+        return aggresiveMode;
     }
 
     @Override
     public AggressiveMode shiftAggressiveModeDown() {
-        switch (this.aggresiveMode) {
+        switch (aggresiveMode) {
             case MODE_3:
-                this.aggresiveMode = AggressiveMode.MODE_2;
+                aggresiveMode = AggressiveMode.MODE_2;
                 break;
             case MODE_2:
-                this.aggresiveMode = AggressiveMode.MODE_1;
+                aggresiveMode = AggressiveMode.MODE_1;
                 break;
         }
-        return this.aggresiveMode;
+        return aggresiveMode;
     }
 
     @Override
     public AggressiveMode currentAggressiveMode() {
-        return this.aggresiveMode;
+        return aggresiveMode;
     }
 
     @Override
     public DriveMode switchDriveMode() {
-        switch (this.driveMode) {
+        switch (driveMode) {
             case SPORT:
-                return (this.driveMode = DriveMode.ECO);
+                return driveMode = DriveMode.ECO;
             case COMFORT:
-                return (this.driveMode = DriveMode.SPORT);
+                return driveMode = DriveMode.SPORT;
             default:
-                return (this.driveMode = DriveMode.COMFORT);
+                return driveMode = DriveMode.COMFORT;
         }
     }
 
     @Override
     public Gear currentGear() {
-        return this.gearbox.currentGear();
+        return gearbox.currentGear();
     }
 
     @Override
     public DriveMode currentDriveMode() {
-        return this.driveMode;
+        return driveMode;
     }
 }
