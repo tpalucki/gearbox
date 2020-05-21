@@ -38,12 +38,12 @@ class GearboxDriver implements Driver {
 
     @Override
     public void handleGearUp() {
-
+        gearbox.setGear(DEFAULT_GEAR_RANGE.next(gearbox.currentGear()));
     }
 
     @Override
     public void handleGearDown() {
-
+        gearbox.setGear(DEFAULT_GEAR_RANGE.previous(gearbox.currentGear()));
     }
 
     public void handleGas() {

@@ -117,4 +117,9 @@ class GearboxDriverTest {
         Assertions.assertEquals(GearboxDriver.DriveMode.COMFORT, driver.currentDriveMode());
     }
 
+    @Test
+    void manuallyShiftGearBelowAllowedRange() {
+        Assertions.fail("Not yet implemented");
+    }
+
 }
