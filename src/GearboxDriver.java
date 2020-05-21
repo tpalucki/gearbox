@@ -14,8 +14,8 @@ class GearboxDriver implements Driver {
 
     enum DriveMode {
         ECO(new RPMRange(RPM.k(1), RPM.k(2))),
-        COMFORT(new RPMRange(RPM.k(1), RPM.rpm(2500))),
-        SPORT(new RPMRange(RPM.k(1), RPM.k(2500)));
+        COMFORT(new RPMRange(RPM.k(1), RPM.k(2.5))),
+        SPORT(new RPMRange(RPM.rpm(1.5), RPM.k(5)));
 
         private final RPMRange associatedRange;
 
