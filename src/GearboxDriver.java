@@ -1,26 +1,39 @@
 class GearboxDriver implements Driver {
     private static final GearRange DEFAULT_GEAR_RANGE = new GearRange(new Gear(1), new Gear(8));
-    private static final RPMRange DEFAULT_RPM_RANGE = new RPMRange(RPM.k(1), RPM.k(2));
+
     private final GearCalculator gearCalculator;
-    private AggressiveMode aggresiveMode;
-    private DriveMode driveMode;
     private final ExternalSystemsFacade externalSystems;
     private final GearboxACL gearbox;
+
+    private AggressiveMode aggressiveMode;
+    private DriveMode driveMode;
 
     enum AggressiveMode {
         MODE_1, MODE_2, MODE_3
     }
 
     enum DriveMode {
-        ECO, COMFORT, SPORT
+        ECO(new RPMRange(RPM.k(1), RPM.k(2))),
+        COMFORT(new RPMRange(RPM.k(1), RPM.rpm(2500))),
+        SPORT(new RPMRange(RPM.k(1), RPM.k(2500)));
+
+        private final RPMRange associatedRange;
+
+        DriveMode(RPMRange range) {
+            this.associatedRange = range;
+        }
+
+        RPMRange asRPMRange() {
+            return associatedRange;
+        }
     }
 
     GearboxDriver(Gearbox gearbox, ExternalSystemsFacade externalSystems) {
         this.gearbox = new GearboxACL(gearbox);
         this.externalSystems = externalSystems;
         driveMode = DriveMode.COMFORT;
-        aggresiveMode = AggressiveMode.MODE_1;
-        gearCalculator = new GearCalculator(DEFAULT_GEAR_RANGE, DEFAULT_RPM_RANGE);
+        aggressiveMode = AggressiveMode.MODE_1;
+        gearCalculator = new GearCalculator(DEFAULT_GEAR_RANGE);
     }
 
     @Override
@@ -37,42 +50,42 @@ class GearboxDriver implements Driver {
         RPM currentRPM = externalSystems.currentRPM();
 
         if (gearbox.drive()) {
-            Gear newGear = gearCalculator.calculate(currentRPM, currentGear());
+            Gear newGear = gearCalculator.calculate(currentRPM, currentGear(), driveMode.asRPMRange());
             gearbox.setGear(newGear);
         }
     }
 
     @Override
     public AggressiveMode shiftAggressiveModeUp() {
-        switch (aggresiveMode) {
+        switch (aggressiveMode) {
             case MODE_1:
-                aggresiveMode = AggressiveMode.MODE_2;
+                aggressiveMode = AggressiveMode.MODE_2;
                 break;
             case MODE_2:
-                aggresiveMode = AggressiveMode.MODE_3;
+                aggressiveMode = AggressiveMode.MODE_3;
                 break;
             default:
                 break;
         }
-        return aggresiveMode;
+        return aggressiveMode;
     }
 
     @Override
     public AggressiveMode shiftAggressiveModeDown() {
-        switch (aggresiveMode) {
+        switch (aggressiveMode) {
             case MODE_3:
-                aggresiveMode = AggressiveMode.MODE_2;
+                aggressiveMode = AggressiveMode.MODE_2;
                 break;
             case MODE_2:
-                aggresiveMode = AggressiveMode.MODE_1;
+                aggressiveMode = AggressiveMode.MODE_1;
                 break;
         }
-        return aggresiveMode;
+        return aggressiveMode;
     }
 
     @Override
     public AggressiveMode currentAggressiveMode() {
-        return aggresiveMode;
+        return aggressiveMode;
     }
 
     @Override

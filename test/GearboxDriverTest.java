@@ -35,8 +35,7 @@ class GearboxDriverTest {
         // when
         driver.shiftAggressiveModeUp();
         //then
-        GearboxDriver.AggressiveMode currentAggresiveMode = driver.currentAggressiveMode();
-        Assertions.assertEquals(GearboxDriver.AggressiveMode.MODE_2, currentAggresiveMode);
+        Assertions.assertEquals(GearboxDriver.AggressiveMode.MODE_2, driver.currentAggressiveMode());
     }
 
     @Test
@@ -46,8 +45,7 @@ class GearboxDriverTest {
         driver.shiftAggressiveModeUp();
         driver.shiftAggressiveModeUp();
         //then
-        GearboxDriver.AggressiveMode currentAggresiveMode = driver.currentAggressiveMode();
-        Assertions.assertEquals(GearboxDriver.AggressiveMode.MODE_3, currentAggresiveMode);
+        Assertions.assertEquals(GearboxDriver.AggressiveMode.MODE_3, driver.currentAggressiveMode());
     }
 
     @Test
@@ -58,8 +56,7 @@ class GearboxDriverTest {
         driver.shiftAggressiveModeUp();
         driver.shiftAggressiveModeUp();
         //then
-        GearboxDriver.AggressiveMode currentAggresiveMode = driver.currentAggressiveMode();
-        Assertions.assertEquals(GearboxDriver.AggressiveMode.MODE_3, currentAggresiveMode);
+        Assertions.assertEquals(GearboxDriver.AggressiveMode.MODE_3, driver.currentAggressiveMode());
     }
 
     @Test
@@ -71,8 +68,7 @@ class GearboxDriverTest {
         driver.shiftAggressiveModeUp();
         driver.shiftAggressiveModeUp();
         //then
-        GearboxDriver.AggressiveMode currentAggresiveMode = driver.currentAggressiveMode();
-        Assertions.assertEquals(GearboxDriver.AggressiveMode.MODE_3, currentAggresiveMode);
+        Assertions.assertEquals(GearboxDriver.AggressiveMode.MODE_3, driver.currentAggressiveMode());
     }
 
     @Test
@@ -81,17 +77,14 @@ class GearboxDriverTest {
         // when
         driver.shiftAggressiveModeDown();
         //then
-        GearboxDriver.AggressiveMode currentAggresiveMode = driver.currentAggressiveMode();
-        Assertions.assertEquals(GearboxDriver.AggressiveMode.MODE_1, currentAggresiveMode);
+        Assertions.assertEquals(GearboxDriver.AggressiveMode.MODE_1, driver.currentAggressiveMode());
     }
 
     @Test
     void defaultDriveMode() {
         Driver driver = givenDriver();
-        // when
-        GearboxDriver.DriveMode defaultDriveMode = driver.currentDriveMode();
         // then
-        Assertions.assertEquals(GearboxDriver.DriveMode.COMFORT, defaultDriveMode);
+        Assertions.assertEquals(GearboxDriver.DriveMode.COMFORT, driver.currentDriveMode());
     }
 
     @Test
@@ -100,8 +93,7 @@ class GearboxDriverTest {
         // when
         driver.switchDriveMode();
         // then
-        GearboxDriver.DriveMode currentDriveMode = driver.currentDriveMode();
-        Assertions.assertEquals(GearboxDriver.DriveMode.SPORT, currentDriveMode);
+        Assertions.assertEquals(GearboxDriver.DriveMode.SPORT, driver.currentDriveMode());
     }
 
     @Test
@@ -111,8 +103,7 @@ class GearboxDriverTest {
         driver.switchDriveMode();
         driver.switchDriveMode();
         // then
-        GearboxDriver.DriveMode currentDriveMode = driver.currentDriveMode();
-        Assertions.assertEquals(GearboxDriver.DriveMode.ECO, currentDriveMode);
+        Assertions.assertEquals(GearboxDriver.DriveMode.ECO, driver.currentDriveMode());
     }
 
     @Test
@@ -123,8 +114,7 @@ class GearboxDriverTest {
         driver.switchDriveMode();
         driver.switchDriveMode();
         // then
-        GearboxDriver.DriveMode currentDriveMode = driver.currentDriveMode();
-        Assertions.assertEquals(GearboxDriver.DriveMode.COMFORT, currentDriveMode);
+        Assertions.assertEquals(GearboxDriver.DriveMode.COMFORT, driver.currentDriveMode());
     }
 
 }

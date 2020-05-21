@@ -21,4 +21,17 @@ class Gear {
     boolean isLowerThan(Gear gear) {
         return this.value < gear.asInt();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Gear gear = (Gear) o;
+        return value == gear.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return value;
+    }
 }

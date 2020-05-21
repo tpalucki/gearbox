@@ -20,3 +20,14 @@ index:
 17 - tryb HIDDEN MODE - kiedy podbić bieg przy przyspieszaniu
 18 - tryb HIDDEN MODE - kiedy redukować bieg przy przyspieszaniu w hidden mode
 19 - tryb HIDDEN MODE - kiedy redukować bieg przy hamowaniu w hidden mode (chyba)
+
+
+ECO
+2000
+1000
+
+COMFORT
+2500
+1000
+
+SPORT
