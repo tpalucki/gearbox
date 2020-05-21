@@ -1,25 +1,24 @@
-class GearboxACL {
+class GearboxFacade {
 
     private final Gearbox gearbox;
 
-    GearboxACL(Gearbox gearbox) {
+    GearboxFacade(Gearbox gearbox) {
         this.gearbox = gearbox;
     }
 
-
-    boolean drive() {
+    boolean isDrive() {
         return (Integer) this.gearbox.getState() == 1;
     }
 
-    boolean park() {
+    boolean isPark() {
         return (Integer) this.gearbox.getState() == 2;
     }
 
-    boolean reverse() {
+    boolean isReverse() {
         return (Integer) this.gearbox.getState() == 3;
     }
 
-    boolean neutral() {
+    boolean isNeutral() {
         return (Integer) this.gearbox.getState() == 4;
     }
 

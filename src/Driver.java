@@ -5,6 +5,8 @@ interface Driver {
 
     void handleGearDown();
 
+    void handleGas();
+
     GearboxDriver.AggressiveMode shiftAggressiveModeUp();
 
     GearboxDriver.AggressiveMode shiftAggressiveModeDown();

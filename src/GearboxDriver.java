@@ -3,7 +3,7 @@ class GearboxDriver implements Driver {
 
     private final GearCalculator gearCalculator;
     private final ExternalSystemsFacade externalSystems;
-    private final GearboxACL gearbox;
+    private final GearboxFacade gearbox;
 
     private AggressiveMode aggressiveMode;
     private DriveMode driveMode;
@@ -29,7 +29,7 @@ class GearboxDriver implements Driver {
     }
 
     GearboxDriver(Gearbox gearbox, ExternalSystemsFacade externalSystems) {
-        this.gearbox = new GearboxACL(gearbox);
+        this.gearbox = new GearboxFacade(gearbox);
         this.externalSystems = externalSystems;
         driveMode = DriveMode.COMFORT;
         aggressiveMode = AggressiveMode.MODE_1;
@@ -46,10 +46,11 @@ class GearboxDriver implements Driver {
         gearbox.setGear(DEFAULT_GEAR_RANGE.previous(gearbox.currentGear()));
     }
 
+
     public void handleGas() {
         RPM currentRPM = externalSystems.currentRPM();
 
-        if (gearbox.drive()) {
+        if (gearbox.isDrive()) {
             Gear newGear = gearCalculator.calculate(currentRPM, currentGear(), driveMode.asRPMRange());
             gearbox.setGear(newGear);
         }
