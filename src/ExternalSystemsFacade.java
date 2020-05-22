@@ -1,4 +1,4 @@
-public class ExternalSystemsFacade {
+class ExternalSystemsFacade {
 
     private final ExternalSystems externalSystems;
 
@@ -24,7 +24,11 @@ public class ExternalSystemsFacade {
         return PedalPosition.of(0.3d);
     }
 
-    boolean breakPressed() {
+    boolean isBreakPressed() {
         return false;
+    }
+
+    boolean isGlide() {
+        return externalSystems.getAngularSpeed() != 0;
     }
 }

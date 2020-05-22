@@ -10,6 +10,7 @@ class GearboxDriver implements Driver {
     private AggressiveMode aggressiveMode;
     private DriveMode driveMode;
     private GearRange gearRange;
+    private boolean dynamicMode;
 
     enum AggressiveMode {
         MODE_1, MODE_2, MODE_3
@@ -60,6 +61,16 @@ class GearboxDriver implements Driver {
     @Override
     public void handleGas() {
         if (gearbox.isDrive()) {
+
+//            jesli dynamicMode to sprawdz predkasc kątową
+//                    jeśli predkosc katowa > 0 to nic nie rob z biegami
+            if (dynamicMode && externalSystems.isGlide()) {
+//                AngularSpeed angularSpeed = externalSystems.currentAngularSpeed();
+//                if (!externalSystems.currentAngularSpeed().isZero()) {
+//                    return;
+//                }
+            }
+
             PedalPosition gasPosition = externalSystems.gasPosition();
             Gear newGear;
             if (driveMode.kickdownPolicy().isApplicable(gasPosition)) {
@@ -126,5 +137,10 @@ class GearboxDriver implements Driver {
     @Override
     public DriveMode currentDriveMode() {
         return driveMode;
+    }
+
+    @Override
+    public boolean toggleDynamicMode() {
+        return dynamicMode = !dynamicMode;
     }
 }

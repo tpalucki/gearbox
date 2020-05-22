@@ -4,4 +4,8 @@ class AngularSpeed {
     AngularSpeed(double angularSpeed) {
         this.speed = angularSpeed;
     }
+
+    boolean isZero() {
+        return speed == 0;
+    }
 }

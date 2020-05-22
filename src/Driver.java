@@ -17,9 +17,8 @@ interface Driver {
 
     GearboxDriver.DriveMode currentDriveMode();
 
+    boolean toggleDynamicMode();
+
     Gear currentGear();
 
-//    Gear gearAbove(Gear defaultGear);
-
-//    Gear gearBelow(Gear defaultGear);
 }
