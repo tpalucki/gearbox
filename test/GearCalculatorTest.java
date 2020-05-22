@@ -25,7 +25,7 @@ class GearCalculatorTest {
         Gear gear = new Gear(2);
 
         // when - then
-        Assertions.assertEquals(new Gear(1), calculator.calculate(rpm, gear, GearboxDriver.DriveMode.ECO.asRPMRange()));
+        Assertions.assertEquals(new Gear(1), calculator.calculate(rpm, gear, GearboxDriver.DriveMode.ECO.optimalRPMRange()));
     }
 
     @Test
@@ -36,7 +36,7 @@ class GearCalculatorTest {
         Gear gear = new Gear(2);
 
         // when - then
-        Assertions.assertEquals(new Gear(3), calculator.calculate(rpm, gear, GearboxDriver.DriveMode.ECO.asRPMRange()));
+        Assertions.assertEquals(new Gear(3), calculator.calculate(rpm, gear, GearboxDriver.DriveMode.ECO.optimalRPMRange()));
     }
 
     @Test
@@ -46,7 +46,7 @@ class GearCalculatorTest {
         RPM rpm = RPM.rpm(2500);
 
         // when - then
-        Assertions.assertEquals(max, calculator.calculate(rpm, max, GearboxDriver.DriveMode.ECO.asRPMRange()));
+        Assertions.assertEquals(max, calculator.calculate(rpm, max, GearboxDriver.DriveMode.ECO.optimalRPMRange()));
 
     }
 }

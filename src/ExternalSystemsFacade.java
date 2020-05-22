@@ -10,10 +10,6 @@ class ExternalSystemsFacade {
         return new RPM(externalSystems.getCurrentRpm());
     }
 
-    AngularSpeed currentAngularSpeed() {
-        return new AngularSpeed(externalSystems.getAngularSpeed());
-    }
-
     boolean isTiltDown() {
         final Integer lightPositoin = externalSystems.getLights().getLightsPosition();
         return lightPositoin != null && lightPositoin >= 1 && lightPositoin <= 3;
@@ -30,5 +26,9 @@ class ExternalSystemsFacade {
 
     boolean isGlide() {
         return externalSystems.getAngularSpeed() != 0;
+    }
+
+    boolean isTrailerConnected() {
+        return false;
     }
 }

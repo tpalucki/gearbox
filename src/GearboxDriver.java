@@ -1,8 +1,6 @@
 import java.util.List;
 
 class GearboxDriver implements Driver {
-    private static final GearRange DEFAULT_GEAR_RANGE = new GearRange(new Gear(1), new Gear(8));
-
     private final GearCalculator gearCalculator;
     private final ExternalSystemsFacade externalSystems;
     private final GearboxFacade gearbox;
@@ -30,7 +28,7 @@ class GearboxDriver implements Driver {
             kickdownPolicy = policy;
         }
 
-        RPMRange asRPMRange() {
+        RPMRange optimalRPMRange() {
             return associatedRange;
         }
 
@@ -44,33 +42,32 @@ class GearboxDriver implements Driver {
         this.externalSystems = externalSystems;
         driveMode = DriveMode.COMFORT;
         aggressiveMode = AggressiveMode.MODE_1;
-        gearRange = DEFAULT_GEAR_RANGE;
+        gearRange = new GearRange(new Gear(1), new Gear(gearbox.getMaxDrive()));
         gearCalculator = new GearCalculator(gearRange);
     }
 
     @Override
     public void handleGearUp() {
-        gearbox.setGear(DEFAULT_GEAR_RANGE.next(gearbox.currentGear()));
+        gearbox.setGear(gearRange.next(gearbox.currentGear()));
     }
 
     @Override
     public void handleGearDown() {
-        gearbox.setGear(DEFAULT_GEAR_RANGE.previous(gearbox.currentGear()));
+        gearbox.setGear(gearRange.previous(gearbox.currentGear()));
     }
 
     @Override
     public void handleGas() {
         if (gearbox.isDrive()) {
-
-//            jesli dynamicMode to sprawdz predkasc kątową
-//                    jeśli predkosc katowa > 0 to nic nie rob z biegami
-            if (dynamicMode && externalSystems.isGlide()) {
-//                AngularSpeed angularSpeed = externalSystems.currentAngularSpeed();
-//                if (!externalSystems.currentAngularSpeed().isZero()) {
-//                    return;
-//                }
+            if (externalSystems.isTrailerConnected() && externalSystems.isTiltDown()) {
+                if (driveMode.optimalRPMRange().contains(externalSystems.currentRPM())) {
+                    gearbox.setGear(gearRange.previous(gearbox.currentGear()));
+                }
             }
 
+            if (dynamicMode && externalSystems.isGlide()) {
+                return;
+            }
             PedalPosition gasPosition = externalSystems.gasPosition();
             Gear newGear;
             if (driveMode.kickdownPolicy().isApplicable(gasPosition)) {
@@ -78,7 +75,7 @@ class GearboxDriver implements Driver {
                 newGear = driveMode.kickdownPolicy().apply(gasPosition, gearbox.currentGear(), gearRange);
             } else {
                 // default calculation
-                newGear = gearCalculator.calculate(externalSystems.currentRPM(), currentGear(), driveMode.asRPMRange());
+                newGear = gearCalculator.calculate(externalSystems.currentRPM(), currentGear(), driveMode.optimalRPMRange());
             }
             gearbox.setGear(newGear);
         }
