@@ -9,6 +9,11 @@ class GearTest {
     }
 
     @Test
+    void shouldNotCreateWithGearMuchLowerThanOne() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Gear(-10));
+    }
+
+    @Test
     void shouldNotCreateWithGearEqualsZero() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> new Gear(0));
     }
@@ -58,4 +63,24 @@ class GearTest {
         Assertions.assertFalse(two.isLowerThan(one));
     }
 
+
+    @Test
+    void twoGearsEquals() {
+        // given
+        Gear one = new Gear(2);
+        Gear two = new Gear(2);
+
+        // when - then
+        Assertions.assertEquals(two, one);
+    }
+
+    @Test
+    void twoGearsEqualsReplaced() {
+        // given
+        Gear one = new Gear(2);
+        Gear two = new Gear(2);
+
+        // when - then
+        Assertions.assertEquals(one, two);
+    }
 }
