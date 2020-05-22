@@ -4,7 +4,7 @@ This is the solution to a problem presented on the [DevUpgrade Online course](ht
 
 ## Wymagania
 
-1. Tryb dynamic - gdy jestesmy w uslizgu skrzynia nie powinna ingerowac w zmianę biegow.
+1. **DONE** Tryb dynamic - gdy jestesmy w uslizgu skrzynia nie powinna ingerowac w zmianę biegow.
 2. Tryb ciągnięcia przyczepy - jeżeli jest podpieta przyczepa do haka z tyłu to należy hamować silnikiem. Nie hamuje nogą to skrzynia powinna tak ustawić bieg żęby obroty silnika hamowały. Ma działać tylko jeśli jedziemy w dół. NIe mamy takiej informacji ale można to wyciągnąć gdzieś ze śœiateł.
 3. Mają się wyświetlać biegi, ma się dać wypływać na srzynie biegow. Skrzynia w trybie park. Jeśli hamulec wcisniety to można wrzucić tryb neutralny, można do tyłu mozna do przodu.
 4. **DONE** Gdy dodajemy gazu, wrzuca nam kolejne biegi - wrzystko oparte na obrotach.
