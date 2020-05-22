@@ -6,8 +6,13 @@ class GearCalculator {
         this.gearRange = gearRange;
     }
 
-    Gear calculate(RPM currentRPM, Gear currentGear, RPMRange rpmRange) {
-        if (currentRPM.isAbove(rpmRange)) {
+    Gear calculate(RPM currentRPM, Gear currentGear, GasPosition gasPosition, DriveMode driveMode) {
+        RPMRange rpmRange = driveMode.optimalRPMRange();
+        KickdownPolicy kickdownPolicy = driveMode.kickdownPolicy();
+
+        if (kickdownPolicy.isApplicable(gasPosition, currentRPM)) {
+            return kickdownPolicy.apply(gasPosition, currentRPM, currentGear, gearRange);
+        } else if (currentRPM.isAbove(rpmRange)) {
             return gearRange.next(currentGear);
         } else if (currentRPM.isBelow(rpmRange)) {
             return gearRange.previous(currentGear);

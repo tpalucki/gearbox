@@ -1,20 +1,20 @@
 
-class PedalPosition {
+class GasPosition {
 
-    final static PedalPosition PRESSED = PedalPosition.of(0);
-    final static PedalPosition RELEASED = PedalPosition.of(1);
+    final static GasPosition PRESSED = GasPosition.of(0);
+    final static GasPosition RELEASED = GasPosition.of(1);
 
     private final double pedalPosition;
 
-    private PedalPosition(double position) {
+    private GasPosition(double position) {
         pedalPosition = position;
     }
 
-    static PedalPosition of(double value) {
-        return new PedalPosition(value);
+    static GasPosition of(double value) {
+        return new GasPosition(value);
     }
 
-    boolean isPressedMoreThan(PedalPosition position) {
+    boolean isLowerThan(GasPosition position) {
         return this.pedalPosition < position.pedalPosition;
     }
 
@@ -23,7 +23,7 @@ class PedalPosition {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PedalPosition that = (PedalPosition) o;
+        GasPosition that = (GasPosition) o;
 
         return Double.compare(that.pedalPosition, pedalPosition) == 0;
     }

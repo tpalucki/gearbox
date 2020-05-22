@@ -1,32 +1,22 @@
-import java.util.*;
-
 class KickdownPolicy {
 
-    static final KickdownPolicy NONE = new KickdownPolicy(List.of(PedalPosition.PRESSED));
-    private final List<PedalPosition> gasThresholds;
+    static final KickdownPolicy NO_KICKDOWN = new KickdownPolicy(GasPosition.PRESSED, RPM.rpm(0d));
+    private final GasPosition gasThreshold;
+    private final RPM rpmThreshold;
 
-    private KickdownPolicy(List<PedalPosition> thresholds) {
-        gasThresholds = thresholds;
-
+    KickdownPolicy(GasPosition gasThreshold, RPM rpmThreshold) {
+        this.gasThreshold = gasThreshold;
+        this.rpmThreshold = rpmThreshold;
     }
 
-    static KickdownPolicy fromThresholds(List<PedalPosition> thresholdsList) {
-        return new KickdownPolicy(thresholdsList);
+    boolean isApplicable(GasPosition gasPosition, RPM rpm) {
+        return gasPosition.isLowerThan(gasThreshold) && rpm.isLowerThan(rpmThreshold);
     }
 
-    boolean isApplicable(PedalPosition gasPosition) {
-        return gasPosition.isPressedMoreThan(gasThresholds.get(0));
-    }
-
-    Gear apply(PedalPosition position, Gear currentGear, GearRange gearRange) {
-        Iterator<PedalPosition> iterator = gasThresholds.iterator();
-        Gear gear = currentGear;
-        while (iterator.hasNext()) {
-            PedalPosition threshold = iterator.next();
-            if (position.isPressedMoreThan(threshold)) {
-                gear = gearRange.previous(gear);
-            }
+    Gear apply(GasPosition gasPosition, RPM currentRPM, Gear currentGear, GearRange gearRange) {
+        if (gasPosition.isLowerThan(gasThreshold) && currentRPM.isLowerThan(rpmThreshold)) {
+            return gearRange.previous(currentGear);
         }
-        return gear;
+        return currentGear;
     }
 }

@@ -16,8 +16,8 @@ class ExternalSystemsFacade {
 
     }
 
-    PedalPosition gasPosition() {
-        return PedalPosition.of(0.3d);
+    GasPosition gasPosition() {
+        return GasPosition.of(0.3d);
     }
 
     boolean isBreakPressed() {

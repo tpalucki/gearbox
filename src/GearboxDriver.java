@@ -1,5 +1,3 @@
-import java.util.List;
-
 class GearboxDriver implements Driver {
     private final GearCalculator gearCalculator;
     private final ExternalSystemsFacade externalSystems;
@@ -12,29 +10,6 @@ class GearboxDriver implements Driver {
 
     enum AggressiveMode {
         MODE_1, MODE_2, MODE_3
-    }
-
-    enum DriveMode {
-        ECO(new RPMRange(RPM.k(1), RPM.k(2)), KickdownPolicy.NONE),
-        COMFORT(new RPMRange(RPM.k(1), RPM.k(2.5)), KickdownPolicy.fromThresholds(List.of(PedalPosition.of(0.5d)))),
-        SPORT(new RPMRange(RPM.rpm(1.5), RPM.k(5)), KickdownPolicy.fromThresholds(List.of(PedalPosition.of(0.7d), PedalPosition.of(0.5d))));
-
-        private final RPMRange associatedRange;
-        private final KickdownPolicy kickdownPolicy;
-
-
-        DriveMode(RPMRange range, KickdownPolicy policy) {
-            associatedRange = range;
-            kickdownPolicy = policy;
-        }
-
-        RPMRange optimalRPMRange() {
-            return associatedRange;
-        }
-
-        public KickdownPolicy kickdownPolicy() {
-            return kickdownPolicy;
-        }
     }
 
     GearboxDriver(Gearbox gearbox, ExternalSystemsFacade externalSystems) {
@@ -68,15 +43,9 @@ class GearboxDriver implements Driver {
             if (dynamicMode && externalSystems.isGlide()) {
                 return;
             }
-            PedalPosition gasPosition = externalSystems.gasPosition();
-            Gear newGear;
-            if (driveMode.kickdownPolicy().isApplicable(gasPosition)) {
-                // kickdown
-                newGear = driveMode.kickdownPolicy().apply(gasPosition, gearbox.currentGear(), gearRange);
-            } else {
-                // default calculation
-                newGear = gearCalculator.calculate(externalSystems.currentRPM(), currentGear(), driveMode.optimalRPMRange());
-            }
+
+            Gear newGear = gearCalculator.calculate(externalSystems.currentRPM(), currentGear(),
+                    externalSystems.gasPosition(), driveMode);
             gearbox.setGear(newGear);
         }
     }

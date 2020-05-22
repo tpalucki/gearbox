@@ -23,9 +23,10 @@ class GearCalculatorTest {
         GearCalculator calculator = givenGearCalculator();
         RPM rpm = RPM.rpm(500);
         Gear gear = new Gear(2);
+        GasPosition gasPosition = GasPosition.of(0.9d);
 
         // when - then
-        Assertions.assertEquals(new Gear(1), calculator.calculate(rpm, gear, GearboxDriver.DriveMode.ECO.optimalRPMRange()));
+        Assertions.assertEquals(new Gear(1), calculator.calculate(rpm, gear, gasPosition, DriveMode.ECO));
     }
 
     @Test
@@ -34,9 +35,10 @@ class GearCalculatorTest {
         GearCalculator calculator = givenGearCalculator();
         RPM rpm = RPM.rpm(2500);
         Gear gear = new Gear(2);
+        GasPosition gasPosition = GasPosition.of(0.9d);
 
         // when - then
-        Assertions.assertEquals(new Gear(3), calculator.calculate(rpm, gear, GearboxDriver.DriveMode.ECO.optimalRPMRange()));
+        Assertions.assertEquals(new Gear(3), calculator.calculate(rpm, gear, gasPosition,  DriveMode.ECO));
     }
 
     @Test
@@ -44,9 +46,10 @@ class GearCalculatorTest {
         // given
         GearCalculator calculator = givenGearCalculator();
         RPM rpm = RPM.rpm(2500);
+        GasPosition gasPosition = GasPosition.of(0.9d);
 
         // when - then
-        Assertions.assertEquals(max, calculator.calculate(rpm, max, GearboxDriver.DriveMode.ECO.optimalRPMRange()));
+        Assertions.assertEquals(max, calculator.calculate(rpm, max,  gasPosition, DriveMode.ECO));
 
     }
 }

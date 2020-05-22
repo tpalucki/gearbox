@@ -18,7 +18,7 @@ class GearboxDriverTest {
 //        // then
 //        Assertions.assertEquals(driver.gearAbove(defaultGear), driver.currentGear());
 //    }
-
+//
 //    @Test
 //    void gearDown() {
 //        Driver driver = givenDriver();
@@ -84,7 +84,7 @@ class GearboxDriverTest {
     void defaultDriveMode() {
         Driver driver = givenDriver();
         // then
-        Assertions.assertEquals(GearboxDriver.DriveMode.COMFORT, driver.currentDriveMode());
+        Assertions.assertEquals(DriveMode.COMFORT, driver.currentDriveMode());
     }
 
     @Test
@@ -93,7 +93,7 @@ class GearboxDriverTest {
         // when
         driver.switchDriveMode();
         // then
-        Assertions.assertEquals(GearboxDriver.DriveMode.SPORT, driver.currentDriveMode());
+        Assertions.assertEquals(DriveMode.SPORT, driver.currentDriveMode());
     }
 
     @Test
@@ -103,7 +103,7 @@ class GearboxDriverTest {
         driver.switchDriveMode();
         driver.switchDriveMode();
         // then
-        Assertions.assertEquals(GearboxDriver.DriveMode.ECO, driver.currentDriveMode());
+        Assertions.assertEquals(DriveMode.ECO, driver.currentDriveMode());
     }
 
     @Test
@@ -114,7 +114,7 @@ class GearboxDriverTest {
         driver.switchDriveMode();
         driver.switchDriveMode();
         // then
-        Assertions.assertEquals(GearboxDriver.DriveMode.COMFORT, driver.currentDriveMode());
+        Assertions.assertEquals(DriveMode.COMFORT, driver.currentDriveMode());
     }
 
     @Test
@@ -122,4 +122,11 @@ class GearboxDriverTest {
         Assertions.fail("Not yet implemented");
     }
 
+
+    // COMFORT - przy 0.5 nacisniecia gazu jeszcze nie kickdown
+    // COMFORT - 4500 czy zrzucic bieg w kickdown
+
+    // SPORT - obroty 1500+ i sprzucamy bieg
+    // SPORT - nacisniecie 0,5- obroty 5000+ zrzuczamy 1 bieg
+    // SPORT - nacisniecie 0,7- obroty 5000+ zrzucamy 2 biegi
 }

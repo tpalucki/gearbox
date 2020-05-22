@@ -13,9 +13,9 @@ interface Driver {
 
     GearboxDriver.AggressiveMode currentAggressiveMode();
 
-    GearboxDriver.DriveMode switchDriveMode();
+    DriveMode switchDriveMode();
 
-    GearboxDriver.DriveMode currentDriveMode();
+    DriveMode currentDriveMode();
 
     boolean toggleDynamicMode();
 
