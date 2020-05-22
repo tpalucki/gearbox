@@ -1,7 +1,7 @@
 class RPM {
     private final double value;
 
-    RPM(double value) {
+    private RPM(double value) {
         if (value < 0) {
             throw new IllegalArgumentException();
         }
@@ -25,24 +25,18 @@ class RPM {
     }
 
     boolean isLowerThan(RPM rpm) {
-        return this.value < rpm.asDouble();
+        return this.value < rpm.value;
     }
 
     boolean isGreaterThan(RPM rpm) {
-        return this.value > rpm.asDouble();
-    }
-
-    private double asDouble() {
-        return this.value;
+        return this.value > rpm.value;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         RPM rpm = (RPM) o;
-
         return Double.compare(rpm.value, value) == 0;
     }
 

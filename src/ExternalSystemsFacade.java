@@ -7,7 +7,7 @@ class ExternalSystemsFacade {
     }
 
     RPM currentRPM() {
-        return new RPM(externalSystems.getCurrentRpm());
+        return RPM.rpm(externalSystems.getCurrentRpm());
     }
 
     boolean isTiltDown() {

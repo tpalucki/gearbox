@@ -17,6 +17,6 @@ class RPMRange {
     }
 
     boolean includes(RPM rpm) {
-        return max.isGreaterThan(rpm) && min.isLowerThan(rpm);
+        return !min.isGreaterThan(rpm) && !max.isLowerThan(rpm);
     }
 }
