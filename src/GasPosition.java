@@ -1,12 +1,17 @@
 
 class GasPosition {
 
-    final static GasPosition PRESSED = GasPosition.of(0);
-    final static GasPosition RELEASED = GasPosition.of(1);
+    final static private double min = 0d;
+    final static private double max = 1d;
+    final static GasPosition PRESSED = GasPosition.of(min);
+    final static GasPosition RELEASED = GasPosition.of(max);
 
     private final double pedalPosition;
 
     private GasPosition(double position) {
+        if (position < min || position > max) {
+            throw new IllegalArgumentException();
+        }
         pedalPosition = position;
     }
 
