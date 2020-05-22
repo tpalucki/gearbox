@@ -1,3 +1,5 @@
+import java.util.List;
+
 class GearboxDriver implements Driver {
     private static final GearRange DEFAULT_GEAR_RANGE = new GearRange(new Gear(1), new Gear(8));
 
@@ -7,24 +9,32 @@ class GearboxDriver implements Driver {
 
     private AggressiveMode aggressiveMode;
     private DriveMode driveMode;
+    private GearRange gearRange;
 
     enum AggressiveMode {
         MODE_1, MODE_2, MODE_3
     }
 
     enum DriveMode {
-        ECO(new RPMRange(RPM.k(1), RPM.k(2))),
-        COMFORT(new RPMRange(RPM.k(1), RPM.k(2.5))),
-        SPORT(new RPMRange(RPM.rpm(1.5), RPM.k(5)));
+        ECO(new RPMRange(RPM.k(1), RPM.k(2)), KickdownPolicy.NONE),
+        COMFORT(new RPMRange(RPM.k(1), RPM.k(2.5)), KickdownPolicy.fromThresholds(List.of(PedalPosition.of(0.5d)))),
+        SPORT(new RPMRange(RPM.rpm(1.5), RPM.k(5)), KickdownPolicy.fromThresholds(List.of(PedalPosition.of(0.7d), PedalPosition.of(0.5d))));
 
         private final RPMRange associatedRange;
+        private final KickdownPolicy kickdownPolicy;
 
-        DriveMode(RPMRange range) {
-            this.associatedRange = range;
+
+        DriveMode(RPMRange range, KickdownPolicy policy) {
+            associatedRange = range;
+            kickdownPolicy = policy;
         }
 
         RPMRange asRPMRange() {
             return associatedRange;
+        }
+
+        public KickdownPolicy kickdownPolicy() {
+            return kickdownPolicy;
         }
     }
 
@@ -33,7 +43,8 @@ class GearboxDriver implements Driver {
         this.externalSystems = externalSystems;
         driveMode = DriveMode.COMFORT;
         aggressiveMode = AggressiveMode.MODE_1;
-        gearCalculator = new GearCalculator(DEFAULT_GEAR_RANGE);
+        gearRange = DEFAULT_GEAR_RANGE;
+        gearCalculator = new GearCalculator(gearRange);
     }
 
     @Override
@@ -46,12 +57,18 @@ class GearboxDriver implements Driver {
         gearbox.setGear(DEFAULT_GEAR_RANGE.previous(gearbox.currentGear()));
     }
 
-
+    @Override
     public void handleGas() {
-        RPM currentRPM = externalSystems.currentRPM();
-
         if (gearbox.isDrive()) {
-            Gear newGear = gearCalculator.calculate(currentRPM, currentGear(), driveMode.asRPMRange());
+            PedalPosition gasPosition = externalSystems.gasPosition();
+            Gear newGear;
+            if (driveMode.kickdownPolicy().isApplicable(gasPosition)) {
+                // kickdown
+                newGear = driveMode.kickdownPolicy().apply(gasPosition, gearbox.currentGear(), gearRange);
+            } else {
+                // default calculation
+                newGear = gearCalculator.calculate(externalSystems.currentRPM(), currentGear(), driveMode.asRPMRange());
+            }
             gearbox.setGear(newGear);
         }
     }

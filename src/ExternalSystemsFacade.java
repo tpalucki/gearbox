@@ -7,16 +7,24 @@ public class ExternalSystemsFacade {
     }
 
     RPM currentRPM() {
-        return new RPM(this.externalSystems.getCurrentRpm());
+        return new RPM(externalSystems.getCurrentRpm());
     }
 
     AngularSpeed currentAngularSpeed() {
-        return new AngularSpeed(this.externalSystems.getAngularSpeed());
+        return new AngularSpeed(externalSystems.getAngularSpeed());
     }
 
     boolean isTiltDown() {
-        final Integer lightPositoin = this.externalSystems.getLights().getLightsPosition();
+        final Integer lightPositoin = externalSystems.getLights().getLightsPosition();
         return lightPositoin != null && lightPositoin >= 1 && lightPositoin <= 3;
 
+    }
+
+    PedalPosition gasPosition() {
+        return PedalPosition.of(0.3d);
+    }
+
+    boolean breakPressed() {
+        return false;
     }
 }

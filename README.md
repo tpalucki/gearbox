@@ -9,7 +9,7 @@ This is the solution to a problem presented on the [DevUpgrade Online course](ht
 3. Mają się wyświetlać biegi, ma się dać wypływać na srzynie biegow. Skrzynia w trybie park. Jeśli hamulec wcisniety to można wrzucić tryb neutralny, można do tyłu mozna do przodu.
 4. **DONE** Gdy dodajemy gazu, wrzuca nam kolejne biegi - wrzystko oparte na obrotach.
 5. **DONE** Tryby działania: Eco, Comfort, Sport. Zmieniamy przyciskiem. Tryby zmieniaja moment w ktorym skrzynia wrzuca kolejny bieg. Jest tabelka, w ktorej jest napisane dla jakiego zakresu obrotów jest jaki bieg w danym trybie.
-6. Kickdown - jesli wcisniemy gaz to redukuje. W trybie sport redukuje o 2 biegi.
+6. **DONE** Kickdown - jesli wcisniemy gaz to redukuje. W trybie sport redukuje o 2 biegi.
 7. **DONE** Manualna zmiana biegow lopatkami - zrzucamy recznie bieg nizej i na jakis czas skrzynia nie zmienia biegow - zaczyna to robic za jakis czas dopiero.
 8. Tryb agresywnosci, 1 - gladko, bez szarpania itp, 2 - szybciej zmienia biegi (zmienia sie o 30% wg obrotow z tabelki), 3 - 30% zmiany + strzelanie z wydechu
 
