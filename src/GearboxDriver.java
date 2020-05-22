@@ -60,7 +60,7 @@ class GearboxDriver implements Driver {
     public void handleGas() {
         if (gearbox.isDrive()) {
             if (externalSystems.isTrailerConnected() && externalSystems.isTiltDown()) {
-                if (driveMode.optimalRPMRange().contains(externalSystems.currentRPM())) {
+                if (driveMode.optimalRPMRange().includes(externalSystems.currentRPM())) {
                     gearbox.setGear(gearRange.previous(gearbox.currentGear()));
                 }
             }
