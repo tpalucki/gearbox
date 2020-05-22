@@ -1,11 +1,21 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class GearboxDriverTest {
 
     static GearboxDriver givenDriver() {
         Gearbox gearbox = new Gearbox();
-        ExternalSystemsFacade externalSystems = new ExternalSystemsFacade(new ExternalSystems());
+        gearbox.setMaxDrive(8);
+        gearbox.setCurrentGear(1);
+        gearbox.setGearBoxCurrentParams(new Integer[]{1, 1});
+
+        CarDataProvider carDataProvider = Mockito.mock(CarDataProvider.class);
+
+        Mockito.when(carDataProvider.isTrailerConnected()).thenReturn(false);
+        Mockito.when(carDataProvider.isBreakPressed()).thenReturn(false);
+
+        ExternalSystemsFacade externalSystems = new ExternalSystemsFacade(new ExternalSystems(), carDataProvider);
         return new GearboxDriver(gearbox, externalSystems);
     }
 
@@ -119,7 +129,24 @@ class GearboxDriverTest {
 
     @Test
     void manuallyShiftGearBelowAllowedRange() {
-        Assertions.fail("Not yet implemented");
+        Driver driver = givenDriver();
+        // when
+        driver.handleGearDown();
+        driver.handleGearDown();
+        driver.handleGearDown();
+        // then
+        Assertions.assertEquals(new Gear(1), driver.currentGear());
+    }
+
+    @Test
+    void manuallyShiftGearAboveAllowedRange() {
+        Driver driver = givenDriver();
+        // when
+        for (int i = 0; i < 10; i++) {
+            driver.handleGearUp();
+        }
+        // then
+        Assertions.assertEquals(new Gear(8), driver.currentGear());
     }
 
 

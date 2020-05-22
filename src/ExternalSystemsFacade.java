@@ -1,9 +1,11 @@
 class ExternalSystemsFacade {
 
     private final ExternalSystems externalSystems;
+    private final CarDataProvider carDataProvider;
 
-    ExternalSystemsFacade(ExternalSystems externalSystems) {
+    ExternalSystemsFacade(ExternalSystems externalSystems, CarDataProvider carDataProvider) {
         this.externalSystems = externalSystems;
+        this.carDataProvider = carDataProvider;
     }
 
     RPM currentRPM() {
@@ -13,7 +15,6 @@ class ExternalSystemsFacade {
     boolean isTiltDown() {
         final Integer lightPositoin = externalSystems.getLights().getLightsPosition();
         return lightPositoin != null && lightPositoin >= 1 && lightPositoin <= 3;
-
     }
 
     GasPosition gasPosition() {
@@ -21,7 +22,7 @@ class ExternalSystemsFacade {
     }
 
     boolean isBreakPressed() {
-        return false;
+        return carDataProvider.isBreakPressed();
     }
 
     boolean isGlide() {
@@ -29,6 +30,6 @@ class ExternalSystemsFacade {
     }
 
     boolean isTrailerConnected() {
-        return false;
+        return carDataProvider.isTrailerConnected();
     }
 }
