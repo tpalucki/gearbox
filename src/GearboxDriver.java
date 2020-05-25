@@ -24,13 +24,15 @@ class GearboxDriver implements Driver {
     }
 
     @Override
-    public void handleGearUp() {
-        gearbox.setGear(gearRange.next(gearbox.currentGear()));
-    }
-
-    @Override
-    public void handleGearDown() {
-        gearbox.setGear(gearRange.previous(gearbox.currentGear()));
+    public void shiftGear(ShiftGearDirection command) {
+        switch (command) {
+            case UP:
+                gearbox.setGear(gearRange.next(gearbox.currentGear()));
+                break;
+            case DOWN:
+                gearbox.setGear(gearRange.previous(gearbox.currentGear()));
+                break;
+        }
     }
 
     @Override
@@ -86,25 +88,18 @@ class GearboxDriver implements Driver {
     }
 
     @Override
-    public DriveMode switchDriveMode() {
-        switch (driveMode) {
-            case SPORT:
-                return driveMode = DriveMode.ECO;
-            case COMFORT:
-                return driveMode = DriveMode.SPORT;
-            default:
-                return driveMode = DriveMode.COMFORT;
-        }
-    }
-
-    @Override
-    public Gear currentGear() {
-        return gearbox.currentGear();
+    public DriveMode switchDriveMode(DriveMode driveMode) {
+        return this.driveMode = driveMode;
     }
 
     @Override
     public DriveMode currentDriveMode() {
         return driveMode;
+    }
+
+    @Override
+    public Gear currentGear() {
+        return gearbox.currentGear();
     }
 
     @Override

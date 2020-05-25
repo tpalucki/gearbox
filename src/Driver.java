@@ -1,9 +1,7 @@
 
 interface Driver {
 
-    void handleGearUp();
-
-    void handleGearDown();
+    void shiftGear(ShiftGearDirection direction);
 
     void handleGas();
 
@@ -13,9 +11,9 @@ interface Driver {
 
     GearboxDriver.AggressiveMode currentAggressiveMode();
 
-    DriveMode switchDriveMode();
-
     DriveMode currentDriveMode();
+
+    DriveMode switchDriveMode(DriveMode driveMode);
 
     boolean toggleDynamicMode();
 

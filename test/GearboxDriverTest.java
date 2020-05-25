@@ -103,41 +103,9 @@ class GearboxDriverTest {
     void driveModeSwitchedOnce() {
         Driver driver = givenDriver();
         // when
-        driver.switchDriveMode();
+        driver.switchDriveMode(DriveMode.SPORT);
         // then
         Assertions.assertEquals(DriveMode.SPORT, driver.currentDriveMode());
-    }
-
-    @Test
-    void driveModeSwitchedTwice() {
-        Driver driver = givenDriver();
-        // when
-        driver.switchDriveMode();
-        driver.switchDriveMode();
-        // then
-        Assertions.assertEquals(DriveMode.ECO, driver.currentDriveMode());
-    }
-
-    @Test
-    void driveModeSwitchedThreeTimes() {
-        Driver driver = givenDriver();
-        // when
-        driver.switchDriveMode();
-        driver.switchDriveMode();
-        driver.switchDriveMode();
-        // then
-        Assertions.assertEquals(DriveMode.COMFORT, driver.currentDriveMode());
-    }
-
-    @Test
-    void manuallyShiftGearBelowAllowedRange() {
-        Driver driver = givenDriver();
-        // when
-        driver.handleGearDown();
-        driver.handleGearDown();
-        driver.handleGearDown();
-        // then
-        Assertions.assertEquals(new Gear(1), driver.currentGear());
     }
 
     @Test
@@ -145,10 +113,10 @@ class GearboxDriverTest {
         Driver driver = givenDriver();
         // when
         for (int i = 0; i < 10; i++) {
-            driver.handleGearUp();
+            driver.shiftGear(ShiftGearDirection.UP);
         }
         // then
-        Assertions.assertEquals(new Gear(8), driver.currentGear());
+        Assertions.assertEquals(8, driver.currentGear().asInt());
     }
 
 

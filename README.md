@@ -1,6 +1,6 @@
 # Gearbox Driver
 
-This is the solution to a problem presented on the [DevUpgrade Online course](https://devupgrade.online/).
+Rozwiązanie zadania postawionego na [kursie DevUpgrade Online](https://devupgrade.online/).
 
 ## Wymagania
 
@@ -12,16 +12,3 @@ This is the solution to a problem presented on the [DevUpgrade Online course](ht
 6. **DONE** Kickdown - jesli wcisniemy gaz to redukuje. W trybie sport redukuje o 2 biegi.
 7. **DONE** Manualna zmiana biegow lopatkami - zrzucamy recznie bieg nizej i na jakis czas skrzynia nie zmienia biegow - zaczyna to robic za jakis czas dopiero.
 8. Tryb agresywnosci, 1 - gladko, bez szarpania itp, 2 - szybciej zmienia biegi (zmienia sie o 30% wg obrotow z tabelki), 3 - 30% zmiany + strzelanie z wydechu
-
-
--2 park
--1 - reverse
-0 - neutral
-1
-2
-3
-4
-5
-6
-7
-8
