@@ -1,5 +1,4 @@
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class GearCalculatorTest {
@@ -93,9 +92,7 @@ class GearCalculatorTest {
         Gear result = calculator.calculate(RPM.rpm(2000), new Gear(5), GasPosition.of(0.1d), DriveMode.COMFORT);
         // then
         Assertions.assertEquals(4, result.asInt());
-
     }
-
 
     @Test
     void lightKickdownOnSportMode() {

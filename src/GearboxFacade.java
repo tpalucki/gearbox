@@ -1,3 +1,5 @@
+import provided.Gearbox;
+
 class GearboxFacade {
 
     private final Gearbox gearbox;

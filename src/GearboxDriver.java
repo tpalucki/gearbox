@@ -1,3 +1,5 @@
+import provided.Gearbox;
+
 class GearboxDriver implements Driver {
     private final GearCalculator gearCalculator;
     private final ExternalSystemsFacade externalSystems;

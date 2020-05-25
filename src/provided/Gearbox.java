@@ -1,3 +1,5 @@
+package provided;
+
 public class Gearbox {
 
     private int maxDrive;

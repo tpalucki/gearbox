@@ -1,3 +1,5 @@
+package provided;
+
 public class Lights {
 
     int position;

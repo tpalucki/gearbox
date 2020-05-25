@@ -1,3 +1,5 @@
+import provided.ExternalSystems;
+
 class ExternalSystemsFacade {
 
     private final ExternalSystems externalSystems;
