@@ -13,7 +13,6 @@ class GearboxDriverTest {
 
     private Gearbox gearbox;
     private CarDataProvider carDataProvider;
-    private ExternalSystemsFacade externalSystemsFacade;
     private ExternalSystems externalSystems;
 
     @BeforeEach
@@ -258,7 +257,7 @@ class GearboxDriverTest {
         Mockito.when(carDataProvider.currentGasPosition()).thenReturn(0.9d);
 
         externalSystems = new ExternalSystems();
-        externalSystemsFacade = new ExternalSystemsFacade(externalSystems, carDataProvider);
+        ExternalSystemsFacade externalSystemsFacade = new ExternalSystemsFacade(externalSystems, carDataProvider);
         return new GearboxDriver(gearbox, externalSystemsFacade);
     }
 
