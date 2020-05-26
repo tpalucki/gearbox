@@ -4,6 +4,7 @@ class ExternalSystemsFacade {
 
     private final ExternalSystems externalSystems;
     private final CarDataProvider carDataProvider;
+    private AggressiveMode rpmModifier = AggressiveMode.MODE_1;
 
     ExternalSystemsFacade(ExternalSystems externalSystems, CarDataProvider carDataProvider) {
         this.externalSystems = externalSystems;
@@ -33,5 +34,13 @@ class ExternalSystemsFacade {
 
     boolean isTrailerConnected() {
         return carDataProvider.isTrailerConnected();
+    }
+
+    AggressiveMode updateRPMModifier(AggressiveMode aggressiveMode) {
+        return rpmModifier = aggressiveMode;
+    }
+
+    AggressiveMode currentRPMModifier() {
+        return rpmModifier;
     }
 }
