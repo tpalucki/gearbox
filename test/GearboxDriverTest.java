@@ -15,10 +15,6 @@ class GearboxDriverTest {
     private CarDataProvider carDataProvider;
     private ExternalSystems externalSystems;
 
-    @BeforeEach
-    void setupTest() {
-    }
-
     @Test
     void shouldShiftGearUp() {
         Driver driver = givenDriver();
