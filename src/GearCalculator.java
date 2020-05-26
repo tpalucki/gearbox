@@ -10,7 +10,7 @@ class GearCalculator {
         RPMRange rpmRange = driveMode.optimalRPMRange();
         KickdownPolicy kickdownPolicy = driveMode.kickdownPolicy();
 
-        if (kickdownPolicy.isApplicable(gasPosition, currentRPM)) {
+        if (kickdownPolicy.isApplicable(gasPosition)) {
             return kickdownPolicy.apply(gasPosition, currentRPM, currentGear, gearRange);
         } else if (currentRPM.isAbove(rpmRange)) {
             return gearRange.next(currentGear);

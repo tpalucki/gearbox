@@ -85,6 +85,16 @@ class GearCalculatorTest {
     }
 
     @Test
+    void nokickdownOnComfortWhenPedalIsThresholdMode() {
+        // given
+        GearCalculator calculator = givenGearCalculator();
+        // when
+        Gear result = calculator.calculate(RPM.rpm(2000), new Gear(5), GasPosition.of(0.5d), DriveMode.COMFORT);
+        // then
+        Assertions.assertEquals(5, result.asInt());
+    }
+
+    @Test
     void noStrongKickdownOnComfortMode() {
         // given
         GearCalculator calculator = givenGearCalculator();
@@ -105,6 +115,27 @@ class GearCalculatorTest {
     }
 
     @Test
+    void noLightKickdownOnSportModeWhenRPMsOverThreshold() {
+        // given
+        GearCalculator calculator = givenGearCalculator();
+        // when
+        Gear result = calculator.calculate(RPM.rpm(8000), new Gear(5), GasPosition.of(0.69d), DriveMode.SPORT);
+        // then
+        Assertions.assertEquals(5, result.asInt());
+    }
+
+
+    @Test
+    void nolightKickdownOnSportModeWhenPedalPositionOnThresholdValue() {
+        // given
+        GearCalculator calculator = givenGearCalculator();
+        // when
+        Gear result = calculator.calculate(RPM.rpm(2000), new Gear(5), GasPosition.of(0.7d), DriveMode.SPORT);
+        // then
+        Assertions.assertEquals(5, result.asInt());
+    }
+
+    @Test
     void strongKickdownOnSportMode() {
         // given
         GearCalculator calculator = givenGearCalculator();
@@ -122,5 +153,15 @@ class GearCalculatorTest {
         Gear result = calculator.calculate(RPM.rpm(2000), new Gear(2), GasPosition.of(0.1d), DriveMode.SPORT);
         // then
         Assertions.assertEquals(1, result.asInt());
+    }
+
+    @Test
+    void sportModeNoStrongKickdownWhenRPMsOverThreshold() {
+        // given
+        GearCalculator calculator = givenGearCalculator();
+        // when
+        Gear result = calculator.calculate(RPM.k(6), new Gear(4), GasPosition.of(0.1d), DriveMode.SPORT);
+        // then
+        Assertions.assertEquals(4, result.asInt());
     }
 }

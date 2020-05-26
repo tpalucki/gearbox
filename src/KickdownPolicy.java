@@ -9,8 +9,8 @@ class KickdownPolicy {
         this.rpmThreshold = rpmThreshold;
     }
 
-    boolean isApplicable(GasPosition gasPosition, RPM rpm) {
-        return gasPosition.isLowerThan(gasThreshold) && rpm.isLowerThan(rpmThreshold);
+    boolean isApplicable(GasPosition gasPosition) {
+        return gasPosition.isLowerThan(gasThreshold);
     }
 
     Gear apply(GasPosition gasPosition, RPM currentRPM, Gear currentGear, GearRange gearRange) {

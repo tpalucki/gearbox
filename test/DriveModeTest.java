@@ -40,7 +40,7 @@ class DriveModeTest {
         DriveMode driveMode = DriveMode.SPORT;
 
         // then
-        assertTrue(driveMode.kickdownPolicy() instanceof SportModeKickdownPolicy);
+        assertTrue(driveMode.kickdownPolicy() instanceof SportKickdownPolicy);
     }
 
     @Test

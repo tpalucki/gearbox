@@ -1,17 +1,17 @@
-class SportModeKickdownPolicy extends KickdownPolicy {
+class SportKickdownPolicy extends KickdownPolicy {
 
     private final GasPosition higherGasThreshold;
     private final RPM higherRpmThreshold;
 
-    SportModeKickdownPolicy(GasPosition gasThreshold, RPM rpmThreshold, GasPosition higherGasThreshold, RPM higherRpmThreshold) {
+    SportKickdownPolicy(GasPosition gasThreshold, RPM rpmThreshold, GasPosition higherGasThreshold, RPM higherRpmThreshold) {
         super(gasThreshold, rpmThreshold);
         this.higherGasThreshold = higherGasThreshold;
         this.higherRpmThreshold = higherRpmThreshold;
     }
 
     @Override
-    boolean isApplicable(GasPosition gasPosition, RPM rpm) {
-        return super.isApplicable(gasPosition, rpm) || gasPosition.isLowerThan(higherGasThreshold) && rpm.isLowerThan(higherRpmThreshold);
+    boolean isApplicable(GasPosition gasPosition) {
+        return super.isApplicable(gasPosition) || gasPosition.isLowerThan(higherGasThreshold);
     }
 
     @Override
