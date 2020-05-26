@@ -1,4 +1,3 @@
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import provided.ExternalSystems;
@@ -23,25 +22,38 @@ class GearboxDriverTest {
         return new GearboxDriver(gearbox, externalSystems);
     }
 
-//    @Test
-//    void handleGearUp() {
-//        Driver driver = givenDriver();
-//        Gear defaultGear = driver.currentGear();
-//        // when
-//        driver.handleGearUp();
-//        // then
-//        Assertions.assertEquals(driver.gearAbove(defaultGear), driver.currentGear());
-//    }
-//
-//    @Test
-//    void gearDown() {
-//        Driver driver = givenDriver();
-//        Gear defaultGear = driver.currentGear();
-//        // when
-//        driver.handleGearDown();
-//        // then
-//        Assertions.assertEquals(driver.gearBelow(defaultGear), driver.currentGear());
-//    }
+    @Test
+    void shouldShiftGearUp() {
+        Driver driver = givenDriver();
+        Gear defaultGear = driver.currentGear();
+        // when
+        driver.shiftGear(ShiftGearDirection.UP);
+        // then
+        assertEquals(defaultGear.asInt() + 1, driver.currentGear().asInt());
+    }
+
+    @Test
+    void shouldShiftGearUpTwice() {
+        Driver driver = givenDriver();
+        Gear defaultGear = driver.currentGear();
+        // when
+        driver.shiftGear(ShiftGearDirection.UP);
+        driver.shiftGear(ShiftGearDirection.UP);
+        // then
+        assertEquals(defaultGear.asInt() + 2, driver.currentGear().asInt());
+    }
+
+    @Test
+    void shouldShiftGearDown() {
+        Driver driver = givenDriver();
+        driver.shiftGear(ShiftGearDirection.UP);
+        driver.shiftGear(ShiftGearDirection.UP);
+        Gear defaultGear = driver.currentGear();
+        // when
+        driver.shiftGear(ShiftGearDirection.DOWN);
+        // then
+        assertEquals(defaultGear.asInt() - 1, driver.currentGear().asInt());
+    }
 
     @Test
     void setAggressiveMode2() {
@@ -100,11 +112,4 @@ class GearboxDriverTest {
         assertEquals(8, driver.currentGear().asInt());
     }
 
-
-    // COMFORT - przy 0.5 nacisniecia gazu jeszcze nie kickdown
-    // COMFORT - 4500 czy zrzucic bieg w kickdown
-
-    // SPORT - obroty 1500+ i sprzucamy bieg
-    // SPORT - nacisniecie 0,5- obroty 5000+ zrzuczamy 1 bieg
-    // SPORT - nacisniecie 0,7- obroty 5000+ zrzucamy 2 biegi
 }
