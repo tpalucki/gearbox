@@ -226,6 +226,7 @@ class GearboxDriverTest {
     @Test
     void trailerConnected() {
         Driver driver = givenDriverWithConnectedTrailer();
+        externalSystems.setCurrentRpm(1000);
         Gear defaultGear = driver.currentGear();
         // when
         driver.handleGas();
