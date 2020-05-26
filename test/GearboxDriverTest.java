@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import provided.ExternalSystems;
 import provided.Gearbox;
+import provided.Lights;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -222,6 +223,27 @@ class GearboxDriverTest {
         assertEquals(defaultGear.asInt(), driver.currentGear().asInt());
     }
 
+    @Test
+    void trailerConnected() {
+        Driver driver = givenDriverWithConnectedTrailer();
+        Gear defaultGear = driver.currentGear();
+        // when
+        driver.handleGas();
+        // then
+        assertEquals(defaultGear.asInt(), driver.currentGear().asInt());
+    }
+
+    @Test
+    void trailerConnectedNoTilt() {
+        Driver driver = givenDriverWithConnectedTrailer();
+        Mockito.when(externalSystems.getLights().getLightsPosition()).thenReturn(5);
+        Gear defaultGear = driver.currentGear();
+        // when
+        driver.handleGas();
+        // then
+        assertEquals(defaultGear.asInt(), driver.currentGear().asInt());
+    }
+
     private GearboxDriver givenDriver() {
         gearbox = new Gearbox();
         gearbox.setMaxDrive(MAX_DRIVE);
@@ -252,6 +274,15 @@ class GearboxDriverTest {
         driver.toggleDynamicMode();
         gearbox.setCurrentGear(5);
         externalSystems.setCurrentRpm(4000);
+        return driver;
+    }
+
+    private Driver givenDriverWithConnectedTrailer() {
+        Driver driver = givenDriver();
+        Mockito.when(carDataProvider.isTrailerConnected()).thenReturn(true);
+        Lights mockedLights = Mockito.mock(Lights.class);
+        Mockito.when(mockedLights.getLightsPosition()).thenReturn(2);
+        externalSystems.setLights(mockedLights);
         return driver;
     }
 }

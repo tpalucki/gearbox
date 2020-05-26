@@ -34,4 +34,8 @@ public class ExternalSystems {
     public Lights getLights() {
         return lights;
     }
+
+    public void setLights(Lights lights) {
+        this.lights = lights;
+    }
 }
