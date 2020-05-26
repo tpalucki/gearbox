@@ -20,7 +20,7 @@ class ExternalSystemsFacade {
     }
 
     GasPosition gasPosition() {
-        return GasPosition.of(0.3d);
+        return GasPosition.of(carDataProvider.currentGasPosition());
     }
 
     boolean isBreakPressed() {
