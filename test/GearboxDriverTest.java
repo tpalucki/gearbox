@@ -244,6 +244,59 @@ class GearboxDriverTest {
         assertEquals(defaultGear.asInt(), driver.currentGear().asInt());
     }
 
+
+    @Test
+    void shouldNotShiftGearUpOnAgressiveMode2() {
+        Driver driver = givenDriver();
+        driver.switchAggressiveMode(AggressiveMode.MODE_2);
+        gearbox.setCurrentGear(5);
+        externalSystems.setCurrentRpm(2500 / AggressiveMode.MODE_2.asDouble() - 1);
+
+        // when
+        driver.handleGas();
+
+        // then
+        assertEquals(5, driver.currentGear().asInt());
+    }
+
+    @Test
+    void shouldShiftShiftUpOnAggressiveMode2() {
+        Driver driver = givenDriver();
+        driver.switchAggressiveMode(AggressiveMode.MODE_2);
+        gearbox.setCurrentGear(5);
+        externalSystems.setCurrentRpm(2500 / AggressiveMode.MODE_2.asDouble() + 1);
+        // when
+        driver.handleGas();
+        // then
+        assertEquals(6, driver.currentGear().asInt());
+    }
+
+    @Test
+    void shouldNotShiftGearDownOnAgressiveMode2() {
+        Driver driver = givenDriver();
+        driver.switchAggressiveMode(AggressiveMode.MODE_2);
+        gearbox.setCurrentGear(5);
+        externalSystems.setCurrentRpm(1000 / AggressiveMode.MODE_2.asDouble() + 1);
+
+        // when
+        driver.handleGas();
+
+        // then
+        assertEquals(5, driver.currentGear().asInt());
+    }
+
+    @Test
+    void shouldShiftGearDownOnAgressiveMode2() {
+        Driver driver = givenDriver();
+        driver.switchAggressiveMode(AggressiveMode.MODE_2);
+        gearbox.setCurrentGear(5);
+        externalSystems.setCurrentRpm(1000 / AggressiveMode.MODE_2.asDouble() - 1);
+        // when
+        driver.handleGas();
+        // then
+        assertEquals(4, driver.currentGear().asInt());
+    }
+
     private GearboxDriver givenDriver() {
         gearbox = new Gearbox();
         gearbox.setMaxDrive(MAX_DRIVE);

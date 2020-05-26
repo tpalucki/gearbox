@@ -2,9 +2,11 @@ import provided.ExternalSystems;
 
 class ExternalSystemsFacade {
 
+    private static final AggressiveMode DEFAULT_AGGRESSIVE_MODE = AggressiveMode.MODE_1;
+
     private final ExternalSystems externalSystems;
     private final CarDataProvider carDataProvider;
-    private AggressiveMode rpmModifier = AggressiveMode.MODE_1;
+    private AggressiveMode rpmModifier = DEFAULT_AGGRESSIVE_MODE;
 
     ExternalSystemsFacade(ExternalSystems externalSystems, CarDataProvider carDataProvider) {
         this.externalSystems = externalSystems;
@@ -12,7 +14,7 @@ class ExternalSystemsFacade {
     }
 
     RPM currentRPM() {
-        return RPM.rpm(externalSystems.getCurrentRpm());
+        return RPM.rpm(externalSystems.getCurrentRpm() * rpmModifier.asDouble());
     }
 
     boolean isTiltDown() {

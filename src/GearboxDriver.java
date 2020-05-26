@@ -2,7 +2,6 @@ import provided.Gearbox;
 
 class GearboxDriver implements Driver {
 
-    private static final AggressiveMode DEFAULT_AGGRESSIVE_MODE = AggressiveMode.MODE_1;
     private static final DriveMode DEFAULT_DRIVE_MODE = DriveMode.COMFORT;
 
     private final GearCalculator gearCalculator;
@@ -16,7 +15,6 @@ class GearboxDriver implements Driver {
     GearboxDriver(Gearbox gearbox, ExternalSystemsFacade externalSystems) {
         this.gearbox = new GearboxFacade(gearbox);
         this.externalSystems = externalSystems;
-        this.externalSystems.updateRPMModifier(DEFAULT_AGGRESSIVE_MODE);
         driveMode = DEFAULT_DRIVE_MODE;
         gearRange = new GearRange(new Gear(1), new Gear(gearbox.getMaxDrive()));
         gearCalculator = new GearCalculator(gearRange);
