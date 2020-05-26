@@ -3,20 +3,17 @@ interface Driver {
 
     void shiftGear(ShiftGearDirection direction);
 
+    Gear currentGear();
+
     void handleGas();
 
-    GearboxDriver.AggressiveMode shiftAggressiveModeUp();
+    AggressiveMode switchAggressiveMode(AggressiveMode mode);
 
-    GearboxDriver.AggressiveMode shiftAggressiveModeDown();
-
-    GearboxDriver.AggressiveMode currentAggressiveMode();
+    AggressiveMode currentAggressiveMode();
 
     DriveMode currentDriveMode();
 
     DriveMode switchDriveMode(DriveMode driveMode);
 
     boolean toggleDynamicMode();
-
-    Gear currentGear();
-
 }

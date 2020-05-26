@@ -10,10 +10,6 @@ class GearboxDriver implements Driver {
     private GearRange gearRange;
     private boolean dynamicMode;
 
-    enum AggressiveMode {
-        MODE_1, MODE_2, MODE_3
-    }
-
     GearboxDriver(Gearbox gearbox, ExternalSystemsFacade externalSystems) {
         this.gearbox = new GearboxFacade(gearbox);
         this.externalSystems = externalSystems;
@@ -55,32 +51,10 @@ class GearboxDriver implements Driver {
     }
 
     @Override
-    public AggressiveMode shiftAggressiveModeUp() {
-        switch (aggressiveMode) {
-            case MODE_1:
-                aggressiveMode = AggressiveMode.MODE_2;
-                break;
-            case MODE_2:
-                aggressiveMode = AggressiveMode.MODE_3;
-                break;
-            default:
-                break;
-        }
-        return aggressiveMode;
+    public AggressiveMode switchAggressiveMode(AggressiveMode mode) {
+        return aggressiveMode = mode;
     }
 
-    @Override
-    public AggressiveMode shiftAggressiveModeDown() {
-        switch (aggressiveMode) {
-            case MODE_3:
-                aggressiveMode = AggressiveMode.MODE_2;
-                break;
-            case MODE_2:
-                aggressiveMode = AggressiveMode.MODE_1;
-                break;
-        }
-        return aggressiveMode;
-    }
 
     @Override
     public AggressiveMode currentAggressiveMode() {
